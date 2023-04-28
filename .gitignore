@@ -41,3 +41,4 @@ key.json
 
 # typescript
 .tsbuildinfo
+.history

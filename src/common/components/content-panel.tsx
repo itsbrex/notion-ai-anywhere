@@ -10,7 +10,7 @@ import ReactMarkdown from "react-markdown"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { _calcPosition, stopPropagation, storage } from "~lib"
+import { stopPropagation, storage } from "~lib"
 import {
   getMainAbsolutePositionAtCursor,
   getMainPositionBySpacerIndex,
@@ -173,7 +173,7 @@ export const ContentPanel = (props: IContentPanelProps) => {
         <input
           value={query}
           type="text"
-          className="pl-12 pr-12 input input-bordered w-full rounded-none box-border h-12"
+          className="box-border w-full h-12 pl-12 pr-12 rounded-none input input-bordered"
           style={{
             outline: "none",
             borderLeft: "none",
@@ -207,12 +207,12 @@ export const ContentPanel = (props: IContentPanelProps) => {
       </div>
 
       <div
-        className="flex overflow-y-hidden pb-6"
+        className="flex pb-6 overflow-y-hidden"
         style={{
           height: "calc(100% - 48px)"
         }}>
         <div
-          className="overflow-auto h-full "
+          className="h-full overflow-auto "
           style={{
             // minWidth: "300px"
             width: "260px"
@@ -247,37 +247,37 @@ export const ContentPanel = (props: IContentPanelProps) => {
           />
         </div>
 
-        <div className="relative flex-1 p-5 border-l border-gray-200 border-opacity-20 h-full overflow-y-scroll">
+        <div className="relative flex-1 h-full p-5 overflow-y-scroll border-l border-gray-200 border-opacity-20">
           {(result || sending) && (
-            <div className="indicator w-full mb-6">
-              <div className="card border w-full">
-                <div className="card-body w-full p-10">
+            <div className="w-full mb-6 indicator">
+              <div className="w-full border card">
+                <div className="w-full p-10 card-body">
                   <div>
                     <span
-                      className="font-sans text-5xl text-violet-300 absolute left-2 top-3"
+                      className="absolute font-sans text-5xl text-violet-300 left-2 top-3"
                       style={{
                         fontFamily: "arial"
                       }}>
-                      “
+                      
                     </span>
                     {/* {selectionText} */}
                     {result ? (
-                      <div className="overflow-x-scroll break-words text-xs">
+                      <div className="overflow-x-scroll text-xs break-words">
                         <ReactMarkdown>{result}</ReactMarkdown>
                       </div>
                     ) : (
-                      <span className="chat-typing w-full text-center">
+                      <span className="w-full text-center chat-typing">
                         <span className="chat-typing-dot"></span>
                         <span className="chat-typing-dot"></span>
                         <span className="chat-typing-dot"></span>
                       </span>
                     )}
                     <span
-                      className="font-sans text-5xl text-violet-300 absolute bottom-0 right-2"
+                      className="absolute bottom-0 font-sans text-5xl text-violet-300 right-2"
                       style={{
                         fontFamily: "arial"
                       }}>
-                      ”
+                      
                     </span>
                   </div>
                 </div>
@@ -285,29 +285,29 @@ export const ContentPanel = (props: IContentPanelProps) => {
               <HandleResultMenu
                 result={result}
                 handleClose={handleClose}></HandleResultMenu>
-              <div className="absolute w-full text-center bottom-1 text-gray-200 text-xs">
+              <div className="absolute w-full text-xs text-center text-gray-200 bottom-1">
                 {t("Result")}
               </div>
             </div>
           )}
 
-          <div className="indicator w-full">
+          <div className="w-full indicator">
             {/* <span className="indicator-item badge badge-primary">
                     Modify
                   </span> */}
-            <div className="card border w-full">
-              <div className="relative card-body w-full p-10 break-words text-xs">
+            <div className="w-full border card">
+              <div className="relative w-full p-10 text-xs break-words card-body">
                 <div>
                   <span
-                    className="font-sans text-5xl text-violet-300 absolute left-2 top-3"
+                    className="absolute font-sans text-5xl text-violet-300 left-2 top-3"
                     style={{
                       fontFamily: "arial"
                     }}>
-                    “
+                    
                   </span>
 
                   {editSelection ? (
-                    <div className="w-full relative">
+                    <div className="relative w-full">
                       <textarea
                         style={{
                           minHeight: "250px"
@@ -319,12 +319,12 @@ export const ContentPanel = (props: IContentPanelProps) => {
                         onBlur={() => {
                           setEditSelection(false)
                         }}
-                        className="textarea textarea-bordered w-full text-xs"
+                        className="w-full text-xs textarea textarea-bordered"
                         placeholder={
                           t("Write selection text") as string
                         }></textarea>
                       <CheckIcon
-                        className="cursor-pointer w-6 h-6 absolute bottom-3 right-3 text-violet-300 "
+                        className="absolute w-6 h-6 cursor-pointer bottom-3 right-3 text-violet-300 "
                         onClick={() => {
                           setEditSelection(false)
                         }}></CheckIcon>
@@ -332,21 +332,21 @@ export const ContentPanel = (props: IContentPanelProps) => {
                   ) : selectionText ? (
                     <ReactMarkdown>{selectionText}</ReactMarkdown>
                   ) : (
-                    <div className="flex items-center w-full text-center text-gray-300 justify-center">
+                    <div className="flex items-center justify-center w-full text-center text-gray-300">
                       {t("No Selection Text")}
                     </div>
                   )}
 
                   <span
-                    className="font-sans text-5xl text-violet-300 absolute bottom-0 right-2"
+                    className="absolute bottom-0 font-sans text-5xl text-violet-300 right-2"
                     style={{
                       fontFamily: "arial"
                     }}>
-                    ”
+                    
                   </span>
                 </div>
                 <div
-                  className="cursor-pointer absolute right-0 top-0 p-2"
+                  className="absolute top-0 right-0 p-2 cursor-pointer"
                   onClick={() => {
                     setEditSelection(true)
                   }}>
@@ -354,7 +354,7 @@ export const ContentPanel = (props: IContentPanelProps) => {
                 </div>
               </div>
             </div>
-            <div className="absolute w-full text-center bottom-1 text-gray-200 text-xs">
+            <div className="absolute w-full text-xs text-center text-gray-200 bottom-1">
               {t("SelectionText")}
             </div>
           </div>
@@ -362,7 +362,7 @@ export const ContentPanel = (props: IContentPanelProps) => {
       </div>
 
       {(!isNotionLogin || !notionSpace) && (
-        <div className="absolute z-10 w-full h-full left-0 top-0 bg-black bg-opacity-80 flex items-center justify-center text-3xl text-white p-12 text-center">
+        <div className="absolute top-0 left-0 z-10 flex items-center justify-center w-full h-full p-12 text-3xl text-center text-white bg-black bg-opacity-80">
           {!isNotionLogin
             ? t("NotionNotLoginDescPanel")
             : !notionSpace
@@ -386,7 +386,7 @@ export const ModalPanel = (props: IContentPanelProps) => {
   return (
     <div
       data-theme={darkMode ? "dark" : "light"}
-      className="flex fixed notion-ai-anywhere-panel text-sm "
+      className="fixed flex text-sm notion-ai-anywhere-panel "
       onMouseUp={stopPropagation}
       onMouseDown={stopPropagation}
       onKeyDown={stopPropagation}
@@ -399,12 +399,12 @@ export const ModalPanel = (props: IContentPanelProps) => {
         className="modal-toggle"
       />
       <div
-        className="modal modal-middle pt-24"
+        className="pt-24 modal modal-middle"
         onClick={() => {
           onClose()
         }}>
         <div
-          className="modal-box p-0"
+          className="p-0 modal-box"
           style={{
             width: "1000px",
             maxWidth: "1000px",
@@ -441,7 +441,7 @@ export const DropdownPanel = (props: IContentPanelProps) => {
         width: position.w + "px"
       }}>
       <div
-        className="absolute shadow bg-base-100 rounded-box w-11/12 overflow-hidden"
+        className="absolute w-11/12 overflow-hidden shadow bg-base-100 rounded-box"
         style={{
           visibility: show ? "visible" : "hidden",
           opacity: show ? 1 : 0,
