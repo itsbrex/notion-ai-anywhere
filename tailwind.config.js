@@ -9,6 +9,7 @@ module.exports = {
      * */
     fontFamily: {
       sans: ['"PT Sans"', 'sans-serif'],
+      mono: ['"Operator Mono"', 'monospace'],
     },
     borderRadius: {
       none: '0px',
