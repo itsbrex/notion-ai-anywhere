@@ -256,7 +256,7 @@ export const ContentPanel = (props: IContentPanelProps) => {
                     <span
                       className="absolute font-sans text-5xl text-violet-300 left-2 top-3"
                       style={{
-                        fontFamily: "arial"
+                        fontFamily: "ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
                       }}>
                       
                     </span>
@@ -275,7 +275,7 @@ export const ContentPanel = (props: IContentPanelProps) => {
                     <span
                       className="absolute bottom-0 font-sans text-5xl text-violet-300 right-2"
                       style={{
-                        fontFamily: "arial"
+                        fontFamily: "ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
                       }}>
                       
                     </span>
@@ -301,7 +301,7 @@ export const ContentPanel = (props: IContentPanelProps) => {
                   <span
                     className="absolute font-sans text-5xl text-violet-300 left-2 top-3"
                     style={{
-                      fontFamily: "arial"
+                      fontFamily: "ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
                     }}>
                     
                   </span>
@@ -340,7 +340,7 @@ export const ContentPanel = (props: IContentPanelProps) => {
                   <span
                     className="absolute bottom-0 font-sans text-5xl text-violet-300 right-2"
                     style={{
-                      fontFamily: "arial"
+                      fontFamily: "ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
                     }}>
                     
                   </span>
@@ -362,7 +362,7 @@ export const ContentPanel = (props: IContentPanelProps) => {
       </div>
 
       {(!isNotionLogin || !notionSpace) && (
-        <div className="absolute top-0 left-0 z-10 flex items-center justify-center w-full h-full p-12 text-3xl text-center text-white bg-black bg-opacity-80">
+        <div className="absolute top-0 left-0 z-10 flex items-center justify-center w-full h-full p-12 text-3xl text-center text-white bg-black bg-opacity-100">
           {!isNotionLogin
             ? t("NotionNotLoginDescPanel")
             : !notionSpace
@@ -433,7 +433,7 @@ export const DropdownPanel = (props: IContentPanelProps) => {
   return (
     <div
       // data-theme={darkMode ? "dark" : "light"}
-      // className={classNames("dropdown dropdown-bottom dropdown-end")}
+      className={classNames("dropdown dropdown-bottom dropdown-end")}
       style={{
         position: "fixed",
         left: position.x + "px",
@@ -441,7 +441,7 @@ export const DropdownPanel = (props: IContentPanelProps) => {
         width: position.w + "px"
       }}>
       <div
-        className="absolute w-11/12 overflow-hidden shadow bg-base-100 rounded-box"
+        className="w-11/12 overflow-hidden shadow dropdown-content bg-base-100 rounded-box"
         style={{
           visibility: show ? "visible" : "hidden",
           opacity: show ? 1 : 0,
@@ -458,141 +458,141 @@ export const DropdownPanel = (props: IContentPanelProps) => {
   )
 }
 
-enum PanelEnum {
-  DropdownPanel = "DropdownPanel",
-  ModalPanel = "ModalPanel"
-}
+  enum PanelEnum {
+    DropdownPanel = "DropdownPanel",
+    ModalPanel = "ModalPanel"
+  }
 
-const getPosition = () => {
-  try {
-    if (isDocs()) {
-      const position = getMainPositionBySpacerIndex()
+  const getPosition = () => {
+    try {
+      if (isDocs()) {
+        const position = getMainPositionBySpacerIndex()
 
-      const rect = document
-        .getElementById("vodka-zoom-outer")
-        ?.getBoundingClientRect() || { left: 0, top: 300, width: 0 }
+        const rect = document
+          .getElementById("vodka-zoom-outer")
+          ?.getBoundingClientRect() || { left: 0, top: 300, width: 0 }
 
-      let top = (rect?.top || 0) + (position?.y || 0)
-      if (!position || !rect) {
-        // 尝试获取 cursor 位置
-        const p = getMainAbsolutePositionAtCursor()
+        let top = (rect?.top || 0) + (position?.y || 0)
+        if (!position || !rect) {
+          // 尝试获取 cursor 位置
+          const p = getMainAbsolutePositionAtCursor()
 
-        if (p) {
-          top = p.top + rect.top + p.height + 20
-          // return
-        } else {
+          if (p) {
+            top = p.top + rect.top + p.height + 20
+            // return
+          } else {
+            return null
+          }
+        }
+
+        if (!top) {
           return null
         }
-      }
 
-      if (!top) {
-        return null
-      }
-
-      let cur = 0
-      if (top + 400 > window.innerHeight) {
-        const editorScrollContainer = document.getElementById(
-          "vodka-appview-editor"
-        )
-        if (editorScrollContainer) {
-          cur = 450 - window.innerHeight + top
-          editorScrollContainer.scrollTop =
-            editorScrollContainer.scrollTop + cur
-          top = top - cur
+        let cur = 0
+        if (top + 400 > window.innerHeight) {
+          const editorScrollContainer = document.getElementById(
+            "vodka-appview-editor"
+          )
+          if (editorScrollContainer) {
+            cur = 450 - window.innerHeight + top
+            editorScrollContainer.scrollTop =
+              editorScrollContainer.scrollTop + cur
+            top = top - cur
+          }
+          // return getPosition()
         }
-        // return getPosition()
+
+        return {
+          x: rect.left,
+          y: top || 300,
+          w: rect.width
+        }
       }
 
-      return {
-        x: rect.left,
-        y: top || 300,
-        w: rect.width
+      // Common web
+      const selection = window.getSelection()
+      if (selection) {
+        const str = selection?.toString().trim()
+        if (!str) {
+          return null
+        }
+
+        const range = selection.getRangeAt(0)
+        const rects = range.getClientRects()
+
+        const lastRect = rects[rects.length - 1]
+        let top = lastRect.top + lastRect.height + 5
+
+        if (top + 400 > window.innerHeight) {
+          top = lastRect.top - lastRect.height - 5 - 400
+          // return getPosition()
+        }
+
+        return {
+          x: 0,
+          y: top,
+          w: window.innerWidth
+        }
       }
+
+      return null
+    } catch (error) {
+      return null
     }
-
-    // Common web
-    const selection = window.getSelection()
-    if (selection) {
-      const str = selection?.toString().trim()
-      if (!str) {
-        return null
-      }
-
-      const range = selection.getRangeAt(0)
-      const rects = range.getClientRects()
-
-      const lastRect = rects[rects.length - 1]
-      let top = lastRect.top + lastRect.height + 5
-
-      if (top + 400 > window.innerHeight) {
-        top = lastRect.top - lastRect.height - 5 - 400
-        // return getPosition()
-      }
-
-      return {
-        x: 0,
-        y: top,
-        w: window.innerWidth
-      }
-    }
-
-    return null
-  } catch (error) {
-    return null
+    // Docs
   }
-  // Docs
-}
 
-/**
- * 自动选择是 modal 还是选区，position 通过 selection 位置获取
- * @param
- * @returns
- */
-export default function AutoPanel(props: IContentPanelProps) {
-  const { show, ...rest } = props
+  /**
+   * 自动选择是 modal 还是选区，position 通过 selection 位置获取
+   * @param
+   * @returns
+   */
+  export default function AutoPanel(props: IContentPanelProps) {
+    const { show, ...rest } = props
 
-  const [position, setPosition] = useState({ x: 0, y: 0, w: 0 })
+    const [position, setPosition] = useState({ x: 0, y: 0, w: 0 })
 
-  const [showPanel, setShowPanel] = useState(false)
+    const [showPanel, setShowPanel] = useState(false)
 
-  const [panelType, setPanelType] = useState(PanelEnum.DropdownPanel)
+    const [panelType, setPanelType] = useState(PanelEnum.DropdownPanel)
 
-  const handleShowPanel = useCallback((type = PanelEnum.DropdownPanel) => {
-    setPanelType(type)
-    setTimeout(() => {
-      setShowPanel(true)
-    }, 0)
-  }, [])
+    const handleShowPanel = useCallback((type = PanelEnum.DropdownPanel) => {
+      setPanelType(type)
+      setTimeout(() => {
+        setShowPanel(true)
+      }, 0)
+    }, [])
 
-  useEffect(() => {
-    if (show) {
-      let position = getPosition()
+    useEffect(() => {
+      if (show) {
+        let position = getPosition()
 
-      if (!position) {
-        handleShowPanel(PanelEnum.ModalPanel)
-        return
+        if (!position) {
+          handleShowPanel(PanelEnum.ModalPanel)
+          return
+        }
+
+        if (!position) {
+          handleShowPanel(PanelEnum.ModalPanel)
+          return
+        }
+
+        setPosition(position)
+        handleShowPanel(PanelEnum.DropdownPanel)
+      } else {
+        setShowPanel(false)
       }
+    }, [show])
 
-      if (!position) {
-        handleShowPanel(PanelEnum.ModalPanel)
-        return
-      }
-
-      setPosition(position)
-      handleShowPanel(PanelEnum.DropdownPanel)
-    } else {
-      setShowPanel(false)
-    }
-  }, [show])
-
-  return (
-    <>
-      {panelType === PanelEnum.ModalPanel && (
-        <ModalPanel {...rest} show={showPanel} />
-      )}
-      {panelType === PanelEnum.DropdownPanel && (
-        <DropdownPanel {...rest} show={showPanel} position={position} />
-      )}
-    </>
-  )
-}
+    return (
+      <>
+        {panelType === PanelEnum.ModalPanel && (
+          <ModalPanel {...rest} show={showPanel} />
+        )}
+        {panelType === PanelEnum.DropdownPanel && (
+          <DropdownPanel {...rest} show={showPanel} position={position} />
+        )}
+      </>
+    )
+  }
