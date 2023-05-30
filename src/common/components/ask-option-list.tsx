@@ -50,7 +50,7 @@ const AskOptionChildList = (props: IAskOptionChildListProps) => {
           const active = activeOption?.value === item.value
           return (
             <div
-              className="dropdown dropdown-hover relative w-full"
+              className="relative w-full dropdown dropdown-hover"
               key={item.value}>
               <div
                 // value={item}
@@ -69,28 +69,28 @@ const AskOptionChildList = (props: IAskOptionChildListProps) => {
                 )}>
                 <>
                   {item.icon ? (
-                    <item.icon className="h-4 w-4 flex-none rounded-full text-violet-300" />
+                    <item.icon className="flex-none w-4 h-4 rounded-full text-violet-300" />
                   ) : (
                     <PencilIcon
                       className={classNames(
-                        "h-4 w-4 flex-none text-violet-300 text-opacity-40",
+                        "h-4 w-4 flex-none text-violet-300 text-opacity-100",
                         active && "text-opacity-100"
                       )}
                       aria-hidden="true"
                     />
                   )}
-                  <span className="ml-3 flex-auto truncate leading-5 text-xs">
+                  <span className="flex-auto ml-3 text-xs leading-5 truncate">
                     {t(item.label)}
                   </span>
                   {active && !item.options?.length && (
                     <ArrowUturnLeftIcon
-                      className="ml-3 h-4 w-4 flex-none text-gray-400"
+                      className="flex-none w-4 h-4 ml-3 text-gray-400"
                       aria-hidden="true"
                     />
                   )}
                   {item.options?.length && (
                     <ChevronRightIcon
-                      className="ml-3 h-4 w-4 flex-none text-gray-400"
+                      className="flex-none w-4 h-4 ml-3 text-gray-400"
                       aria-hidden="true"
                     />
                   )}
@@ -99,7 +99,7 @@ const AskOptionChildList = (props: IAskOptionChildListProps) => {
               {item.options?.length && (
                 <div
                   tabIndex={0}
-                  className="dropdown-content menu p-1 shadow bg-base-100 rounded-box w-52 right-0 ">
+                  className="right-0 p-1 shadow dropdown-content menu bg-base-100 rounded-box w-52 ">
                   {item.options?.map((option) => {
                     const active = activeOption?.value === option.value
                     return (
@@ -119,12 +119,12 @@ const AskOptionChildList = (props: IAskOptionChildListProps) => {
                           active && "bg-gray-100 text-gray-900"
                         )}>
                         <>
-                          <span className="ml-3 flex-auto truncate leading-5 text-xs">
+                          <span className="flex-auto ml-3 text-xs leading-5 truncate">
                             {t(option.label)}
                           </span>
                           {active && (
                             <ArrowUturnLeftIcon
-                              className="ml-3 h-4 w-4 flex-none text-gray-400"
+                              className="flex-none w-4 h-4 ml-3 text-gray-400"
                               aria-hidden="true"
                             />
                           )}
